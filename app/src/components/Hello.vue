@@ -116,7 +116,7 @@
     data () {
       return {
         test: 1,
-        validate: false,
+        validate: true,
         model: {
           id: 1,
           name: 'John Doe',
@@ -173,8 +173,8 @@
         })
         console.log(response)
         response.data.fields[0].onChanged = eval(response.data.fields[0].onChanged)
+        response.data.fields[2].validator = VueFormGenerator.validators.string
         response.data.fields[6].onSubmit = eval(response.data.fields[6].onSubmit)
-//        response.data.fields[0].validator = eval(response.data.fields[0].validator)
         this.schema = response.data
         console.log(this.schema)
       },
