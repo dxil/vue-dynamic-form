@@ -53,6 +53,7 @@ exports.getForm = async (ctx, next) => {
       placeholder: 'User\'s e-mail address'
     }, {
       type: 'checklist',
+      inputType: 'password',
       label: 'Skills',
       model: 'skills',
       multi: true,

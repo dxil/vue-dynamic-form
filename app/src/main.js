@@ -8,7 +8,10 @@ Vue.config.productionTip = false
 
 import VueFormGenerator from 'vue-form-generator'
 import 'vue-form-generator/dist/vfg-core.css'
+import 'element-ui/lib/theme-default/index.css'
+import ElementUI from 'element-ui'
 
+Vue.use(ElementUI)
 Vue.use(VueFormGenerator)
 
 /* eslint-disable no-new */
