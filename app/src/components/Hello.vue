@@ -1,17 +1,11 @@
 <template>
   <div>
-    <h1 class="text-center">Demo of vue-form-generator</h1>
+    <h1 class="text-center">vue-form-generator</h1>
     <div class="container" id="app">
       <div class="panel panel-default">
         <div class="panel-heading">Form</div>
         <div class="panel-body">
           <vue-form-generator :schema="schema" :model="model" :options="formOptions" @validated="onValidated"></vue-form-generator>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="panel-heading">Model</div>
-        <div class="panel-body">
-          <pre v-if="model" v-html="prettyJSON(model)"></pre>
         </div>
       </div>
 
@@ -118,13 +112,6 @@
         test: 1,
         validate: true,
         model: {
-          id: 1,
-          name: 'John Doe',
-          password: 'J0hnD03!x4',
-          age: 35,
-          skills: ['Javascript', 'VueJS'],
-          email: 'john.doe@gmail.com',
-          status: true
         },
         schema: {},
         formOptions: {
@@ -172,9 +159,7 @@
           url: 'http://localhost:3000/forms'
         })
         console.log(response)
-        response.data.fields[0].onChanged = eval(response.data.fields[0].onChanged)
-        response.data.fields[2].validator = VueFormGenerator.validators.string
-        response.data.fields[6].onSubmit = eval(response.data.fields[6].onSubmit)
+        response.data.fields[response.data.fields.length-1].onSubmit = eval(response.data.fields[response.data.fields.length-1].onSubmit)
         this.schema = response.data
         console.log(this.schema)
       },
