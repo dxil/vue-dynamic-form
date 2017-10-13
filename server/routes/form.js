@@ -5,6 +5,7 @@ router.prefix('/forms')
 
 router.post('/', form.postForm)
 router.get('/', form.getForm)
+router.get('/model', form.getModel)
 
 
 module.exports = router
