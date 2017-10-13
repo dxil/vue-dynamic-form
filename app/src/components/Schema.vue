@@ -51,7 +51,7 @@
         </ul>
       </el-form-item>
 
-      <el-form-item v-if="schema.type === 'check'" label="单选框可选择值">
+      <el-form-item v-if="schema.type === 'radios'" label="单选框可选择值">
         <div>
           <el-input style="width: 192px" v-model="inpValue"></el-input>
           <el-button @click="addCheckList(index)">添加</el-button>
@@ -62,10 +62,16 @@
       </el-form-item>
 
     </el-form>
+    <el-button v-if="schemas.length" @click="postSchema">确定</el-button>
+    <hr>
+    <div v-for="schema in schemas">
+      <span>{{schema}}</span>
+    </div>
   </div>
 </template>
 
 <script>
+  import axios from 'axios'
   const attrOptions = [
     {
       name: '姓名',
@@ -96,7 +102,7 @@
       label: '多选框'
     },
     {
-      type: 'check',
+      type: 'select',
       label: '单选框'
     }
   ]
@@ -140,16 +146,27 @@
       addMultiCheckList (i) {
         if (!this.schemas[i].values && this.schemas[i].type === 'checklist') {
           this.schemas[i].values = []
-          this.schemas[i].values.push(this.multiInpValue)
-          this.multiInpValue = ''
         }
+        this.schemas[i].values.push(this.multiInpValue)
+        this.multiInpValue = ''
       },
       addCheckList (i) {
-        if (!this.schemas[i].values && this.schemas[i].type === 'check') {
+        if (!this.schemas[i].values && this.schemas[i].type === 'radios') {
           this.schemas[i].values = []
-          this.schemas[i].values.push(this.inpValue)
-          this.inpValue = ''
         }
+        this.schemas[i].values.push(this.inpValue)
+        this.inpValue = ''
+      },
+      postSchema: async function () {
+        let response = await axios.request({
+          method: 'post',
+          url: 'http://localhost:3000/schema',
+          data: {
+            schemas: this.schemas,
+            checkedAttrs: this.checkedAttrs
+          }
+        })
+        console.log(response)
       }
     }
   }

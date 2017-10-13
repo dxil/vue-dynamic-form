@@ -8,7 +8,17 @@ const logger = require('koa-logger')
 const response_formatter = require('./middlewares/response_formatter')
 
 const form = require('./routes/form')
+const schema = require('./routes/schema')
 const cors = require('kcors');
+
+const mongoose = require('mongoose')
+const mongoUrl = 'mongodb://localhost:27017/form'
+
+mongoose.Promise = global.Promise;
+mongoose.connect(mongoUrl, {
+  useMongoClient: true,
+  /* other options */
+})
 
 // error handler
 onerror(app)
@@ -37,6 +47,7 @@ app.use(async (ctx, next) => {
 
 // routes
 app.use(form.routes(), form.allowedMethods())
+app.use(schema.routes(), schema.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
