@@ -5,7 +5,6 @@
         v-model="checkedAttrs">
         <el-checkbox v-for="attr in attrs" :label="attr.value" :key="attr.name" :disabled = "attr.disabled">{{attr.name}}</el-checkbox>
       </el-checkbox-group>
-      <el-button type="primary" @click="submit" size="small">确定</el-button>
     </div>
 
     <el-button type="primary" @click="add" size="small" style="margin-bottom: 10px">自建模块</el-button>
@@ -51,7 +50,7 @@
         </ul>
       </el-form-item>
 
-      <el-form-item v-if="schema.type === 'radios'" label="单选框可选择值">
+      <el-form-item v-if="schema.type === 'select'" label="单选框可选择值">
         <div>
           <el-input style="width: 192px" v-model="inpValue"></el-input>
           <el-button @click="addCheckList(index)">添加</el-button>
@@ -104,6 +103,10 @@
     {
       type: 'select',
       label: '单选框'
+    },
+    {
+      type: 'image',
+      label: '图片上传'
     }
   ]
   const typeInpOptions = [
@@ -122,6 +125,10 @@
     {
       type: 'number',
       label: '数值'
+    },
+    {
+      type: 'file',
+      label: '文件上传'
     }
   ]
   export default {
@@ -151,7 +158,7 @@
         this.multiInpValue = ''
       },
       addCheckList (i) {
-        if (!this.schemas[i].values && this.schemas[i].type === 'radios') {
+        if (!this.schemas[i].values && this.schemas[i].type === 'select') {
           this.schemas[i].values = []
         }
         this.schemas[i].values.push(this.inpValue)
