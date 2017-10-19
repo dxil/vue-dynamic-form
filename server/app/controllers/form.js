@@ -17,9 +17,22 @@ exports.getForm = async (ctx, next) => {
   // ctx.body = {
   //
   // }
+  let lang = ctx.request.query.language
   ctx.response.type = 'json'
   let schema = await Schema.find({})
-  schema.push({
+  schema = JSON.parse(JSON.stringify(schema))
+  let _schema = schema.map((e) => {
+    if (e[lang + 'Label']) {
+      e.label = e[lang + 'Label']
+    }else if (e['cnLabel']) {
+      e.label = e[lang + 'Label']
+    }else {
+      console.log('没有该语言/中文Label')
+    }
+    return e
+  })
+  console.log(_schema)
+  _schema.push({
     type: 'submit',
     validateBeforeSubmit: true,
     onSubmit: `(data) => {
@@ -29,7 +42,7 @@ exports.getForm = async (ctx, next) => {
       }`
   })
   ctx.body = {
-    fields: schema
+    fields: _schema
   }
 }
 
