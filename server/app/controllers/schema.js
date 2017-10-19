@@ -4,7 +4,8 @@ const requiredModel = {
   name: {
     type: 'input',
     inputType: 'text',
-    label: '姓名',
+    cnLabel: '姓名',
+    enLabel: 'name',
     model: 'name',
     readonly: false,
     featured: true,
@@ -15,7 +16,8 @@ const requiredModel = {
   age: {
     type: 'input',
     inputType: 'number',
-    label: '年龄',
+    cnLabel: '年龄',
+    enLabel: 'age',
     model: 'age',
     readonly: false,
     featured: true,
@@ -25,7 +27,8 @@ const requiredModel = {
   account: {
     type: 'input',
     inputType: 'text',
-    label: '账号',
+    cnLabel: '账号',
+    enLabel: 'account',
     model: 'account',
     readonly: false,
     featured: true,
@@ -35,7 +38,8 @@ const requiredModel = {
   password: {
     type: 'input',
     inputType: 'password',
-    label: '密码',
+    cnLabel: '密码',
+    enLabel: 'password',
     model: 'password',
     readonly: false,
     featured: true,

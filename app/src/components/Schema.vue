@@ -8,10 +8,20 @@
     </div>
 
     <el-button type="primary" @click="add" size="small" style="margin-bottom: 10px">自建模块</el-button>
+
+    <el-select v-model="languageType" style="margin-bottom: 10px">
+      <el-option
+        v-for="item in languageOpts"
+        :key="item.type"
+        :label="item.type"
+        :value="item.value">
+      </el-option>
+    </el-select>
+
     <el-form v-for = "(schema, index) in schemas" :key="index" style="margin-bottom: 10px">
 
-      <el-form-item label="模块名称">
-        <el-input v-model="schema.label" style="width: 192px"></el-input>
+      <el-form-item :label="modelName">
+        <el-input v-model="schema[languageType + 'Label']" style="width: 192px"></el-input>
       </el-form-item>
 
       <el-form-item label="模块唯一标识">
@@ -91,6 +101,15 @@
       value: 'password'
     }
   ]
+  const languageOptions = [
+    {
+      type: '中文',
+      value: 'cn'
+    },
+    {
+      type: '英语',
+      value: 'en'
+    }]
   const typeOptions = [
     {
       type: 'input',
@@ -138,9 +157,22 @@
         attrs: attrOptions,
         typeOpts: typeOptions,
         typeInpOpts: typeInpOptions,
+        languageOpts: languageOptions,
+        languageType: 'cn',
+//        modelName: '',
         multiInpValue: '',
+//        label: '',
         inpValue: '',
         schemas: []
+      }
+    },
+    computed: {
+      modelName: function () {
+        for (let i = 0; i < languageOptions.length; i++) {
+          if (languageOptions[i].value === this.languageType) {
+            return languageOptions[i].type + '模板名称'
+          }
+        }
       }
     },
     methods: {
@@ -148,7 +180,7 @@
         console.log(this.checkedAttrs)
       },
       add () {
-        this.schemas.push({type: '', label: '', inputType: '', model: ''})
+        this.schemas.push({type: '', cnLabel: '', enLabel: '', inputType: '', model: ''})
       },
       addMultiCheckList (i) {
         if (!this.schemas[i].values && this.schemas[i].type === 'checklist') {
