@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Hello from '@/components/Hello'
 import Schema from '@/components/Schema'
 import Form from '@/components/Form'
+import Date from '@/components/Date'
 
 Vue.use(Router)
 
@@ -22,6 +23,11 @@ export default new Router({
       path: '/form',
       name: 'Form',
       component: Form
+    },
+    {
+      path: '/date',
+      name: 'Date',
+      component: Date
     }
   ]
 })
